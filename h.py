@@ -3,6 +3,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 import pandas as pd
 import time
+from PIL import Image # PIL(Pillow) 라이브러리 임포트
 
 # 페이지 설정
 st.set_page_config(
@@ -93,7 +94,6 @@ slides = [
     "🔥 안녕하세요!",
     "🌱 성장 배경",
     "📚 학업 경험",
-    "🏆 활동 및 수상",
     "💼 프로젝트 경험",
     "🛠️ 기술 및 역량",
     "🚀 미래 비전",
@@ -122,12 +122,12 @@ with st.sidebar:
     with col1:
         if st.button("⬅️ 이전", disabled=st.session_state.current_slide == 0):
             st.session_state.current_slide = max(0, st.session_state.current_slide - 1)
-            st.rerun()  # Changed from st.experimental_rerun()
+            st.rerun()
 
     with col2:
         if st.button("다음 ➡️", disabled=st.session_state.current_slide == len(slides) - 1):
             st.session_state.current_slide = min(len(slides) - 1, st.session_state.current_slide + 1)
-            st.rerun()  # Changed from st.experimental_rerun()
+            st.rerun()
 
     # 자동 재생
     auto_play = st.checkbox("🎬 자동재생 (5초)", value=st.session_state.auto_play)
@@ -154,11 +154,20 @@ if current_slide == 0:
     st.markdown('<div class="slide-card">', unsafe_allow_html=True)
 
     col1, col2, col3 = st.columns([1, 2, 1])
+    with col1: # 첫 번째 컬럼에 사진 추가
+        try:
+            # 'my_photo.jpg'를 사용자님의 실제 이미지 파일 경로로 변경하세요.
+            # 이미지 파일은 이 스크립트와 같은 폴더에 있거나, 정확한 경로를 지정해야 합니다.
+            image = Image.open("my_photo.jpg")
+            st.image(image, caption='배민식', width=200) 
+        except FileNotFoundError:
+            st.warning("🚨 'my_photo.jpg' 파일을 찾을 수 없습니다. 이미지 경로를 확인해 주세요!")
+
     with col2:
         st.markdown("## 👋 안녕하세요!")
         st.markdown('<h2 class="gradient-text">배민식입니다! 🔥</h2>', unsafe_allow_html=True)
         st.markdown("""
-        **재난안전소방학**을 전공하며   
+        **재난안전소방학**을 전공하며   
         **안전한 사회를 만들어가는 전문가**로 성장하고 있습니다.
         
         오늘 저의 특별한 이야기를 들려드리겠습니다! ✨
@@ -255,40 +264,8 @@ elif current_slide == 2:
 
     st.markdown('</div>', unsafe_allow_html=True)
 
-# 슬라이드 4: 활동 및 수상
-elif current_slide == 3:
-    st.markdown('<div class="slide-card">', unsafe_allow_html=True)
-    st.markdown("## 🏆 활동 및 수상")
-
-    # 주요 활동 메트릭
-    col1, col2 = st.columns(2)
-    with col1:
-        st.metric("🎯 봉사활동", "100+시간", "지역 소방서 안전교육")
-    with col2:
-        st.metric("👥 리더십", "회장 역임", "응급처치 동아리")
-
-    # 수상 내역
-    st.markdown("### 🏅 주요 수상 내역")
-
-    st.markdown('<div class="timeline-item">', unsafe_allow_html=True)
-    st.markdown("### 🥈 전국 대학생 소방안전 아이디어 공모전")
-    st.write("**우수상 수상** - 혁신적인 안전 아이디어로 인정받음")
-    st.markdown('</div>', unsafe_allow_html=True)
-
-    st.markdown('<div class="timeline-item">', unsafe_allow_html=True)
-    st.markdown("### 🥇 교내 안전캠페인 기획 대회")
-    st.write("**최우수상 수상** - 창의적인 캠페인 기획으로 1등 달성")
-    st.markdown('</div>', unsafe_allow_html=True)
-
-    st.markdown('<div class="timeline-item">', unsafe_allow_html=True)
-    st.markdown("### 📜 보유 자격증")
-    st.write("응급처치 강사 자격증, 소방설비기사 필기 합격")
-    st.markdown('</div>', unsafe_allow_html=True)
-
-    st.markdown('</div>', unsafe_allow_html=True)
-
 # 슬라이드 5: 프로젝트 경험
-elif current_slide == 4:
+elif current_slide == 3:
     st.markdown('<div class="slide-card">', unsafe_allow_html=True)
     st.markdown("## 💼 프로젝트 경험")
 
@@ -297,13 +274,11 @@ elif current_slide == 4:
 
     col1, col2, col3, col4 = st.columns(4)
     with col1:
-        st.metric("👨‍💼 역할", "팀장", "")
+        st.metric("👨‍💼 역할", "부팀장", "")
     with col2:
         st.metric("👥 팀원", "5명", "")
     with col3:
         st.metric("⚙️ 기술", "IoT 센서", "")
-    with col4:
-        st.metric("🤝 협력기관", "지역 소방서", "")
 
     st.info("💡 실시간 모니터링 시스템 구축으로 실제 적용 가능성까지 검증 완료!")
 
@@ -322,7 +297,7 @@ elif current_slide == 4:
     st.markdown('</div>', unsafe_allow_html=True)
 
 # 슬라이드 6: 기술 및 역량
-elif current_slide == 5:
+elif current_slide == 4:
     st.markdown('<div class="slide-card">', unsafe_allow_html=True)
     st.markdown("## 🛠️ 기술 및 역량")
 
@@ -378,7 +353,7 @@ elif current_slide == 5:
     st.markdown('</div>', unsafe_allow_html=True)
 
 # 슬라이드 7: 미래 비전
-elif current_slide == 6:
+elif current_slide == 5:
     st.markdown('<div class="slide-card">', unsafe_allow_html=True)
     st.markdown("## 🚀 미래 비전")
 
@@ -391,7 +366,7 @@ elif current_slide == 6:
         st.markdown("### 🎯 단기 목표 (1-2년)")
         st.markdown("""
         - ✅ 소방설비기사 자격증 취득
-        - 📈 현장 실무 경험 쌓기   
+        - 📈 현장 실무 경험 쌓기   
         - 📚 전문 지식 심화 학습
         """)
         st.markdown('</div>', unsafe_allow_html=True)
@@ -402,7 +377,6 @@ elif current_slide == 6:
         st.markdown("""
         - 🔥 재난안전 분야 전문가
         - 🏢 안전한 사회 구축 기여
-        - 👨‍🏫 후배 교육 및 멘토링
         """)
         st.markdown('</div>', unsafe_allow_html=True)
 
@@ -431,7 +405,7 @@ elif current_slide == 6:
     st.markdown('</div>', unsafe_allow_html=True)
 
 # 슬라이드 8: 마무리 & 연락처
-elif current_slide == 7:
+elif current_slide == 6:
     st.markdown('<div class="slide-card">', unsafe_allow_html=True)
     st.markdown("## 🎁 마무리 & 연락처")
 
@@ -440,10 +414,10 @@ elif current_slide == 7:
         st.markdown('<h1 class="gradient-text">"안전한 세상을 만드는 것이 저의 사명입니다"</h1>', unsafe_allow_html=True)
 
         st.info("""
-        지금까지 쌓아온 **경험과 지식**을 바탕으로   
+        지금까지 쌓아온 **경험과 지식**을 바탕으로   
         더 나은 미래를 만들어가겠습니다. ⭐
         
-        함께 성장할 수 있는 기회를 주신다면   
+        함께 성장할 수 있는 기회를 주신다면   
         **최선을 다해 기여**하겠습니다!
         """)
 
@@ -466,7 +440,7 @@ elif current_slide == 7:
     with col3:
         st.markdown('<div class="contact-card">', unsafe_allow_html=True)
         st.markdown("#### 🏫 소속")
-        st.write("건양대학교   \n재난안전소방학과")
+        st.write("건양대학교   \n재난안전소방학과")
         st.markdown('</div>', unsafe_allow_html=True)
 
     st.markdown("### 🙏✨ 감사합니다!")
@@ -477,7 +451,7 @@ elif current_slide == 7:
 if st.session_state.auto_play and st.session_state.current_slide < len(slides) - 1:
     time.sleep(5)
     st.session_state.current_slide += 1
-    st.rerun() # This is the line that was causing the error and has now been fixed!
+    st.rerun()
 elif st.session_state.auto_play and st.session_state.current_slide == len(slides) - 1:
     st.session_state.auto_play = False
 
