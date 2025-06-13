@@ -332,7 +332,7 @@ elif current_slide == 3:
     st.markdown("## 💼 프로젝트 경험")
 
     # 주요 프로젝트
-    st.markdown("### 🔥 화재 예방 시설 점검 시스템 개발")
+    st.markdown("### 🔥 스마트 장애인 주차구역")
 
     col1, col2, col3, col4 = st.columns(4)
     with col1:
@@ -342,12 +342,12 @@ elif current_slide == 3:
     with col3:
         st.metric("⚙️ 기술", "IoT 센서", "")
 
-    st.info("💡 실시간 모니터링 시스템 구축으로 실제 적용 가능성까지 검증 완료!")
+    st.info("💡 논문 작성 완료!")
 
     st.markdown('<div class="timeline-item">', unsafe_allow_html=True)
-    st.markdown("### 🗺️ 대학 내 안전지도 제작")
-    st.write("캠퍼스 위험 요소 분석 및 학생 안전 가이드라인 제작")
-    st.caption("학생들의 안전한 캠퍼스 생활을 위한 실용적 프로젝트")
+    st.markdown("### 자격증")
+    st.write("위험물산업기사, 소방설비기사(전기), 소방설비기사(기계)")
+    st.caption("자격증 취득을 위해 노력하는 중")
     st.markdown('</div>', unsafe_allow_html=True)
 
     # 프로젝트 스킬
