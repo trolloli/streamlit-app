@@ -221,7 +221,8 @@ if current_slide == 0:
         st.markdown("## 👋 안녕하세요!")
         st.markdown('<h2 class="gradient-text">배민식입니다! 🔥</h2>', unsafe_allow_html=True)
         st.markdown("""
-        **재난안전소방학**을 전공하며   
+        
+        **건양대학교**에서 **재난안전소방학**을 전공하며   
         **안전한 사회를 만들어가는 전문가**로 성장하고 있습니다.
         
         오늘 저의 특별한 이야기를 들려드리겠습니다! ✨
@@ -346,8 +347,8 @@ elif current_slide == 3:
 
     st.markdown('<div class="timeline-item">', unsafe_allow_html=True)
     st.markdown("### 자격증")
-    st.write("위험물산업기사, 소방설비기사(전기), 소방설비기사(기계)")
-    st.caption("자격증 취득을 위해 노력하는 중")
+    st.write("ACU(Autodesk Certified User), 위험물산업기사, 소방설비기사(전기), 소방설비기사(기계)")
+    st.caption("추가적인 자격증 취득을 위해 노력하는 중")
     st.markdown('</div>', unsafe_allow_html=True)
 
     # 프로젝트 스킬
