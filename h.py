@@ -3,8 +3,9 @@ import plotly.graph_objects as go
 import plotly.express as px
 import pandas as pd
 import time
-from PIL import Image # PIL(Pillow) 라이브러리 임포트
+from PIL import Image
 
+# --- 오류 수정: set_page_config()를 모든 Streamlit 명령어 중 가장 위로 옮김 ---
 # 페이지 설정
 st.set_page_config(
     page_title="배민식의 자기소개",
@@ -12,10 +13,26 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
+# --- 오류 수정 끝 ---
 
-# CSS 스타일링
+# 초기 로딩 스피너
+with st.spinner('✨ 프레젠테이션을 로딩 중입니다...'):
+    time.sleep(1) # 실제 로딩 시간을 시뮬레이션
+st.success('🚀 로딩 완료!')
+
+# CSS 스타일링 (애니메이션 및 hover 효과 추가)
 st.markdown("""
 <style>
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes popIn {
+        0% { transform: scale(0.8); opacity: 0; }
+        50% { transform: scale(1.05); opacity: 1; }
+        100% { transform: scale(1); }
+    }
+    
     .main-header {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         padding: 2rem;
@@ -23,6 +40,7 @@ st.markdown("""
         text-align: center;
         color: white;
         margin-bottom: 2rem;
+        animation: fadeIn 1s ease-out; /* 초기 헤더 페이드인 */
     }
     
     .gradient-text {
@@ -39,6 +57,7 @@ st.markdown("""
         border-radius: 1rem;
         margin: 1rem 0;
         box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        animation: fadeIn 0.8s ease-out; /* 각 슬라이드 카드 페이드인 */
     }
     
     .skill-badge {
@@ -49,6 +68,10 @@ st.markdown("""
         margin: 0.2rem;
         display: inline-block;
         font-size: 0.9rem;
+        transition: transform 0.2s ease-in-out; /* 호버 효과 */
+    }
+    .skill-badge:hover {
+        transform: translateY(-3px);
     }
     
     .timeline-item {
@@ -57,6 +80,10 @@ st.markdown("""
         border-radius: 1rem;
         margin: 1rem 0;
         border-left: 4px solid #667eea;
+        transition: transform 0.2s ease-in-out; /* 호버 효과 */
+    }
+    .timeline-item:hover {
+        transform: translateX(5px);
     }
     
     .metric-card {
@@ -66,6 +93,7 @@ st.markdown("""
         text-align: center;
         color: white;
         margin: 0.5rem;
+        animation: popIn 0.6s ease-out; /* 메트릭 카드 팝인 효과 */
     }
     
     .contact-card {
@@ -74,11 +102,37 @@ st.markdown("""
         border-radius: 1rem;
         text-align: center;
         margin: 1rem 0;
+        transition: transform 0.2s ease-in-out; /* 호버 효과 */
+    }
+    .contact-card:hover {
+        transform: translateY(-5px);
     }
     
     .stSelectbox > div > div {
         background: linear-gradient(45deg, #667eea, #764ba2);
         color: white;
+    }
+    
+    /* Streamlit 버튼 스타일 오버라이드 및 호버 효과 */
+    .stButton > button {
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        color: white;
+        border: none;
+        border-radius: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        font-weight: bold;
+        transition: all 0.3s ease-in-out;
+    }
+    .stButton > button:hover:enabled {
+        background: linear-gradient(45deg, #764ba2, #667eea);
+        transform: scale(1.05);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        cursor: pointer;
+    }
+    .stButton > button:disabled {
+        background-color: #cccccc;
+        cursor: not-allowed;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -173,16 +227,24 @@ if current_slide == 0:
         오늘 저의 특별한 이야기를 들려드리겠습니다! ✨
         """)
 
-    # 메트릭 카드들
+    # 메트릭 카드들 (popIn 효과 적용)
     col1, col2, col3, col4 = st.columns(4)
     with col1:
+        st.markdown('<div class="metric-card">', unsafe_allow_html=True)
         st.metric("🔥 열정", "100%", "최고 수준")
+        st.markdown('</div>', unsafe_allow_html=True)
     with col2:
+        st.markdown('<div class="metric-card">', unsafe_allow_html=True)
         st.metric("🎓 전문성", "85%", "지속 성장")
+        st.markdown('</div>', unsafe_allow_html=True)
     with col3:
+        st.markdown('<div class="metric-card">', unsafe_allow_html=True)
         st.metric("🤝 협업", "90%", "팀워크 중시")
+        st.markdown('</div>', unsafe_allow_html=True)
     with col4:
+        st.markdown('<div class="metric-card">', unsafe_allow_html=True)
         st.metric("💪 책임감", "95%", "신뢰성 확보")
+        st.markdown('</div>', unsafe_allow_html=True)
 
     st.markdown('</div>', unsafe_allow_html=True)
 
